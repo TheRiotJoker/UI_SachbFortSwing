@@ -3,8 +3,7 @@ public class AdminAS {
         boolean auswahlGetroffen;
         do {
             auswahlGetroffen = true;
-            Eingabe.abbruchInfo();
-            String[] auswahl = {"Sachbearbeiter Bearbeiten", "Sachbearbeiter Erfassen", "Sachbearbeiter Loeschen", "Fortbildung Zuordnen", "Fortbildungszuordnung Anzeigen", "Fortbildungszuordnung Loeschen"};
+            String[] auswahl = {"Sachbearbeiter Bearbeiten", "Sachbearbeiter Erfassen", "Sachbearbeiter Loeschen", "Fortbildung Zuordnen", "Fortbildungszuordnung Anzeigen", "Fortbildungszuordnung Loeschen", "Abbruch"};
             String wahl = Auswaehlen.waehleAus(auswahl);
             switch (wahl) {
                 case "Sachbearbeiter Bearbeiten" -> sachbearbeiterBearbeiten();
@@ -13,7 +12,7 @@ public class AdminAS {
                 case "Fortbildung Zuordnen" -> fortbildungZuordnen();
                 case "Fortbildungszuordnung Anzeigen" -> fortbildungsZuordnungAnzeigen();
                 case "Fortbildungszuordnung Loeschen" -> fortbildungsZuordnungLoeschen();
-                case "abbruch" -> {
+                case "Abbruch" -> {
                     return;
                 }
                 default -> auswahlGetroffen = false;
