@@ -4,6 +4,7 @@ public class Auswaehlen {
     static String waehleAus(String[] alternativen) {
         Scanner scan = new Scanner(System.in);
         String rueckgabe = null;
+        //Test comment
         int wahl = -1;
         for(int i = 0; i < alternativen.length; i++) {
             System.out.println((i+1)+" "+alternativen[i]);
