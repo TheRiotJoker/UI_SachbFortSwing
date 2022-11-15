@@ -2,6 +2,9 @@ public class NormalAS {
     private final NormalSachbearbeiterBearbeitenAAS nsbAAS;
     public void oeffnen() {
         do {
+            System.out.println();
+            System.out.println("======Sachbearbeiter Menü======");
+            System.out.println();
             String auswahl = Auswaehlen.waehleAus(new String[]{"Sachbearbeiter Bearbeiten", "Fortbildung Zuordnen", "Fortbildungszuordnung Loeschen", "Fortbildungszuordnungen Anzeigen"});
             switch(auswahl) {
                 case "Sachbearbeiter Bearbeiten" -> sachbearbeiterBearbeiten();

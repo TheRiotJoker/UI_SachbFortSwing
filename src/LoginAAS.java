@@ -8,10 +8,11 @@ public class LoginAAS {
         adminAS = new AdminAS();
 
     }
-    public void oeffne() {
+    public void oeffnen() {
         boolean success = false;
         boolean pAdmin = true;
         do{
+            System.out.println("======Login======");
             String username = Eingabe.eingeben("Bitte geben Sie den Benutzernamen ein: ");
             if(username.equals("abbruch")) {
                 return;

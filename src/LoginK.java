@@ -6,7 +6,7 @@ public class LoginK {
         if(s == null) { //wenn nutzer nicht existiert
             return false;
         }
-        if(s.istAdmin() != istAdmin) {
+        if(!s.istAdmin() && istAdmin) {
             return false;
         }
         //ist passwort gueltig?

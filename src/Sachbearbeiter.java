@@ -27,13 +27,13 @@ public class Sachbearbeiter {
         return passwort.equals(pw);
     }
     public static boolean pruefeBenutzername(String name) {
-        return name.length() > 7;
+        return name.length() >= 4;
     }
     public static String[] gibAlleNamen() {
         return dieSachbearbeiter.keySet().toArray(new String[0]);
     }
 
-    private static boolean pruefePasswort(String pw) {
+    public static boolean pruefePasswort(String pw) {
         //das passwort muss mindestens 7 zeichen lang sein
         return pw.length() >= 7;
     }
@@ -45,13 +45,13 @@ public class Sachbearbeiter {
         }
         return false;
     }
-    private static boolean mindestensEinAdministratorExistiert() {
+    public static boolean mindestensEinAdministratorExistiert() {
         int counter = 0;
         for(Sachbearbeiter s : dieSachbearbeiter.values()) {
             if(s.istAdmin()) {
                 counter++;
             }
-            if(counter >= 1) {
+            if(counter > 1) {
                 return true;
             }
         }
@@ -69,7 +69,7 @@ public class Sachbearbeiter {
     public void fuegeHinzuBelegteFortbildungen(Fortbildung f, String s) {
         for(Fortbildung fb : f.gibVoraussetzungen()) {
             if(!bestandeneFortbildungen.containsValue(fb)) {
-                throw new IllegalArgumentException("Diese Fortbildung kann von diesem Sachbearbeiter belegt werden, da dieser die Voraussetzungen nicht erfüllt!");
+                throw new IllegalArgumentException("Diese Fortbildung kann von diesem Sachbearbeiter nicht belegt werden, da dieser die Voraussetzungen nicht erfüllt!");
             }
         }
         belegteFortbildungen.put(s, f);
@@ -85,10 +85,12 @@ public class Sachbearbeiter {
     }
 
     public void loescheFortbildungsZuordnung(String zuordnung) {
-        //kann nicht die löschen, die eine voraussetzung für andere sind
-        for(Fortbildung f : bestandeneFortbildungen.values()) {
-            if(bestandeneFortbildungen.get(zuordnung).istVoraussetzung(f)) {
-                throw new IllegalArgumentException("Diese Fortbildung ist eine Voraussetzung für eine andere, die eingetragen ist, bitte löschen Sie diese zuerst!");
+        //gib fortbildung, die zu löschen ist:
+        Fortbildung f = bestandeneFortbildungen.get(zuordnung);
+        //Die Fortbildung darf nicht gelöscht werden, wenn sie eine voraussetzung darstellt für eine andere fortbildung
+        for(Fortbildung belegteF : belegteFortbildungen.values()) { //iteriere durch alle belegte Fortbildungen
+            if(belegteF.gibVoraussetzungen().contains(f)) { //wenn eine belegte Fortbildung die zu löschende als Voraussetzung hat
+                throw new IllegalArgumentException("Die Fortbildung darf nicht gelöscht werden, da sie eine Voraussetzung für eine andere eingetragene Fortbildung ist!");
             }
         }
         belegteFortbildungen.remove(zuordnung);
@@ -113,7 +115,7 @@ public class Sachbearbeiter {
         if(pruefePasswort(passwort)) {
             this.passwort = passwort;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Das Passwort ist nicht gültig!");
         }
     }
     public boolean istAdmin() {

@@ -7,6 +7,7 @@ public class NormalSachbearbeiterBearbeitenAAS {
     }
 
     public void oeffnen() {
+        System.out.println("======Sachbearbeiter Bearbeiten======");
         boolean success;
         String alterName;
         String neuerName;

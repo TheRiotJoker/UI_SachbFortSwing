@@ -4,6 +4,7 @@ public class FortbildungenAuswaehlenAAS {
         faK = new FortbildungAuswaehlenK();
     }
     public String oeffne() {
+        System.out.println("======Fortbildungen Auswählen======");
         praesentiereFortbildungen();
         return selektiereFortbildung();
     }

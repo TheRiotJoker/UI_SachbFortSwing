@@ -7,15 +7,16 @@ public class AdminSachbearbeiterBearbeitenAAS {
     }
 
     public void oeffnen() {
+        System.out.println("======Admin Panel: Sachbearbeiter Bearbeiten======");
         boolean success;
         String alterName;
         String neuerName;
         String passwort;
         String adminStatus;
         praesentiereSachbearbeiter();
-        alterName = sbAAS.sachbearbeiterAuswaehlen.oeffnen();
         boolean istAdmin = false;
         do {
+            alterName = sbAAS.sachbearbeiterAuswaehlen.oeffnen();
             Eingabe.abbruchInfo();
             success = true;
             neuerName = Eingabe.eingeben("Bitte geben Sie den neuen Namen des Sachbearbeiters ein: ");

@@ -1,7 +1,11 @@
 public class AdminAS {
     public void oeffnen() {
+
         boolean auswahlGetroffen;
         do {
+            System.out.println();
+            System.out.println("======Administrator Menü======");
+            System.out.println();
             String[] auswahl = {"Sachbearbeiter Bearbeiten", "Sachbearbeiter Erfassen", "Sachbearbeiter Loeschen", "Fortbildung Zuordnen", "Fortbildungszuordnung Anzeigen", "Fortbildungszuordnung Loeschen"};
             String wahl = Auswaehlen.waehleAus(auswahl);
             switch (wahl) {

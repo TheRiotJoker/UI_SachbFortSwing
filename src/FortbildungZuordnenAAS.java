@@ -8,10 +8,17 @@ public class FortbildungZuordnenAAS {
         faK = new FortbildungZuordnenK();
     }
     public void oeffnen() {
+        System.out.println("======Fortbildung Zuordnen======");
         System.out.println("Bitte waehlen Sie zunächst den Sachbearbeiter");
         String benutzername = saAAS.oeffnen();
+        if(benutzername.equalsIgnoreCase("abbruch")) {
+            return;
+        }
         System.out.println("Bitte wählen Sie jetzt die Fortbildung: ");
         String fortbildungsName = faAAS.oeffne();
+        if(fortbildungsName.equalsIgnoreCase("abbruch")) {
+            return;
+        }
         String typ;
         do {
             typ = Eingabe.eingeben("Typ der Fortbildung: [belegt] / [bestanden]");

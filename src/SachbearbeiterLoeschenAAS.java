@@ -6,6 +6,7 @@ public class SachbearbeiterLoeschenAAS {
         saAAS = new SachbearbeiterAuswaehlenAAS();
     }
     public void oeffnen() {
+        System.out.println("======Sachbearbeiter Löschen======");
         boolean success = false;
         String benutzername;
         do {

@@ -4,6 +4,7 @@ public class SachbearbeiterErfassenAAS {
         seK = new SachbearbeiterErfassenK();
     }
     public void oeffne() {
+        System.out.println("======Sachbearbeiter Erfassen======");
         String benutzername;
         String passwort;
         String adminStatus;
@@ -12,23 +13,21 @@ public class SachbearbeiterErfassenAAS {
         do {
             Eingabe.abbruchInfo();
             benutzername = Eingabe.eingeben("Bitte geben Sie den Namen des Sachbearbeiters ein: ");
-            if(benutzername.equals("abbruch")) {
+            if(benutzername.equalsIgnoreCase("abbruch")) {
                 return;
             }
             passwort = Eingabe.eingeben("Bitte geben Sie das Passwort ein: ");
-            if(passwort.equals("abbruch")) {
+            if(passwort.equalsIgnoreCase("abbruch")) {
                 return;
             }
             do {
                 adminStatus = Eingabe.eingeben("Bitte geben Sie den Adminstatus ein [J/N] ein: ");
-                if(adminStatus.equals("abbruch")) {
+                if(adminStatus.equalsIgnoreCase("abbruch")) {
                     return;
                 }
             }while(!adminStatus.equals("J") && !adminStatus.equals("N"));
             isAdmin = adminStatus.equals("J");
             success = seK.erfasseSachbearbeiter(benutzername,passwort,isAdmin);
-
-
         }while(!success);
 
     }
