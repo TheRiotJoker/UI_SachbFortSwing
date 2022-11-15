@@ -1,5 +1,11 @@
 public class SachbearbeiterLoeschenK {
-    public void loescheSachbearbeiter(String name) {
-        Sachbearbeiter.loesche(name);
+    public boolean loescheSachbearbeiter(String name) {
+        try {
+            Sachbearbeiter.loesche(name);
+            return true;
+        } catch(IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

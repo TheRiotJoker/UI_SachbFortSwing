@@ -2,8 +2,7 @@ public class AdminAS {
     public void oeffnen() {
         boolean auswahlGetroffen;
         do {
-            auswahlGetroffen = true;
-            String[] auswahl = {"Sachbearbeiter Bearbeiten", "Sachbearbeiter Erfassen", "Sachbearbeiter Loeschen", "Fortbildung Zuordnen", "Fortbildungszuordnung Anzeigen", "Fortbildungszuordnung Loeschen", "Abbruch"};
+            String[] auswahl = {"Sachbearbeiter Bearbeiten", "Sachbearbeiter Erfassen", "Sachbearbeiter Loeschen", "Fortbildung Zuordnen", "Fortbildungszuordnung Anzeigen", "Fortbildungszuordnung Loeschen"};
             String wahl = Auswaehlen.waehleAus(auswahl);
             switch (wahl) {
                 case "Sachbearbeiter Bearbeiten" -> sachbearbeiterBearbeiten();
@@ -15,10 +14,9 @@ public class AdminAS {
                 case "Abbruch" -> {
                     return;
                 }
-                default -> auswahlGetroffen = false;
 
             }
-        }while(!auswahlGetroffen);
+        }while(true);
     }
     private void sachbearbeiterBearbeiten() {
         AdminSachbearbeiterBearbeitenAAS asbASS = new AdminSachbearbeiterBearbeitenAAS();
@@ -29,15 +27,20 @@ public class AdminAS {
         seAAS.oeffne();
     }
     private void sachbearbeiterLoeschen() {
-
+        SachbearbeiterLoeschenAAS slAAS = new SachbearbeiterLoeschenAAS();
+        slAAS.oeffnen();
     }
     private void fortbildungZuordnen() {
-
+        FortbildungZuordnenAAS fzAAS = new FortbildungZuordnenAAS();
+        fzAAS.oeffnen();
     }
     private void fortbildungsZuordnungLoeschen() {
+        FortbildungsZuordnungLoeschenAAS fzlAAS = new FortbildungsZuordnungLoeschenAAS();
+        fzlAAS.oeffnen();
 
     }
     private void fortbildungsZuordnungAnzeigen() {
-
+        FortbildungsZuordnungAnzeigenAAS fzaAAS = new FortbildungsZuordnungAnzeigenAAS();
+        fzaAAS.oeffnen();
     }
 }

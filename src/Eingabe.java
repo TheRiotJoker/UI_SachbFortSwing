@@ -7,6 +7,6 @@ public class Eingabe {
         return scan.nextLine();
     }
     public static void abbruchInfo() {
-        System.out.println("Zum Verlassen des Programms bitte geben Sie \"abbruch\" ein.");
+        System.out.println("Zum Verlassen des Programms bitte geben Sie \"Abbruch\" ein oder wählen Sie \"Abbruch\" aus.");
     }
 }

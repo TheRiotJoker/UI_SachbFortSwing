@@ -1,10 +1,12 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Auswaehlen {
     static String waehleAus(String[] alternativen) {
+        alternativen = Arrays.copyOf(alternativen, alternativen.length+1);
+        alternativen[alternativen.length-1] = "Abbruch";
         Scanner scan = new Scanner(System.in);
         String rueckgabe = null;
-        //Test comment
         int wahl = -1;
         for(int i = 0; i < alternativen.length; i++) {
             System.out.println((i+1)+" "+alternativen[i]);

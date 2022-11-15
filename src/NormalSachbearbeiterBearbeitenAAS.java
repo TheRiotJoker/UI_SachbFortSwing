@@ -1,7 +1,7 @@
-public class AdminSachbearbeiterBearbeitenAAS {
+public class NormalSachbearbeiterBearbeitenAAS {
     private final SachbearbeiterBearbeitenK sbK;
     private final SachbearbeiterBearbeitenAAS sbAAS;
-    public AdminSachbearbeiterBearbeitenAAS() {
+    public NormalSachbearbeiterBearbeitenAAS() {
         sbK = new SachbearbeiterBearbeitenK();
         sbAAS = new SachbearbeiterBearbeitenAAS();
     }
@@ -11,11 +11,17 @@ public class AdminSachbearbeiterBearbeitenAAS {
         String alterName;
         String neuerName;
         String passwort;
-        String adminStatus;
-        praesentiereSachbearbeiter();
-        alterName = sbAAS.sachbearbeiterAuswaehlen.oeffnen();
-        boolean istAdmin = false;
         do {
+            do {
+                praesentiereSachbearbeiter();
+                alterName = sbAAS.sachbearbeiterAuswaehlen.oeffnen();
+                if(alterName.equals("Abbruch")) {
+                    return;
+                }
+                if(sbK.istAdmin(alterName)) {
+                    System.out.println("Sie haben die Berechtigung nicht, um die Daten dieses Nutzers zu ändern!");
+                }
+            }while(sbK.istAdmin(alterName));
             Eingabe.abbruchInfo();
             success = true;
             neuerName = Eingabe.eingeben("Bitte geben Sie den neuen Namen des Sachbearbeiters ein: ");
@@ -26,12 +32,8 @@ public class AdminSachbearbeiterBearbeitenAAS {
             if(passwort.equals("abbruch")) {
                 return;
             }
-            do {
-                adminStatus = Eingabe.eingeben("Bitte geben Sie den neuen Adminstatus des Sachbearbeiters ein[J/N]: ");
-            }while(!adminStatus.equals("J") && !adminStatus.equals("N"));
-            istAdmin = adminStatus.equals("J");
             try {
-                sbK.schreibeSachbearbeiter(alterName, neuerName, passwort, istAdmin);
+                sbK.schreibeSachbearbeiter(alterName, neuerName, passwort, false);
             }catch(IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 success = false;

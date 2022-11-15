@@ -4,7 +4,7 @@ public class Sachbearbeiter {
 
     private HashMap<String, Fortbildung> bestandeneFortbildungen;
     private HashMap<String, Fortbildung> belegteFortbildungen;
-    private static HashMap<String, Sachbearbeiter> dieSachbearbeiter = new HashMap<>();
+    private static final HashMap<String, Sachbearbeiter> dieSachbearbeiter = new HashMap<>();
     private String name;
 
 
@@ -15,6 +15,8 @@ public class Sachbearbeiter {
         setzeName(name);
         setzePasswort(pw);
         this.admin = admin;
+        bestandeneFortbildungen = new HashMap<>();
+        belegteFortbildungen = new HashMap<>();
         fuegeHinzu(this);
     }
 
@@ -60,19 +62,37 @@ public class Sachbearbeiter {
         return belegteFortbildungen;
     }
 
-    public void fuegeHinzuBelegteFortbildungen(Fortbildung f, String s) {
-        belegteFortbildungen.put(s, f);
-    }
 
     public HashMap<String, Fortbildung> gibBestandeneFortbildungen() {
         return bestandeneFortbildungen;
     }
-
+    public void fuegeHinzuBelegteFortbildungen(Fortbildung f, String s) {
+        for(Fortbildung fb : f.gibVoraussetzungen()) {
+            if(!bestandeneFortbildungen.containsValue(fb)) {
+                throw new IllegalArgumentException("Diese Fortbildung kann von diesem Sachbearbeiter belegt werden, da dieser die Voraussetzungen nicht erfüllt!");
+            }
+        }
+        belegteFortbildungen.put(s, f);
+    }
     public void fuegeHinzuBestandeneFortbildungen(Fortbildung f, String s) {
+        if(!belegteFortbildungen.containsValue(f)) {
+            throw new IllegalArgumentException("Der Sachbearbeiter kann eine nicht belegte Fortbildung nicht bestehen!");
+        }
         bestandeneFortbildungen.put(s,f);
     }
     public static Sachbearbeiter gib(String name) {
         return dieSachbearbeiter.get(name);
+    }
+
+    public void loescheFortbildungsZuordnung(String zuordnung) {
+        //kann nicht die löschen, die eine voraussetzung für andere sind
+        for(Fortbildung f : bestandeneFortbildungen.values()) {
+            if(bestandeneFortbildungen.get(zuordnung).istVoraussetzung(f)) {
+                throw new IllegalArgumentException("Diese Fortbildung ist eine Voraussetzung für eine andere, die eingetragen ist, bitte löschen Sie diese zuerst!");
+            }
+        }
+        belegteFortbildungen.remove(zuordnung);
+        bestandeneFortbildungen.remove(zuordnung);
     }
 
     public String gibName() {
@@ -113,7 +133,7 @@ public class Sachbearbeiter {
     }
     public static boolean mindestensEineFortbildungsZuordnungExistiert() {
         for(Sachbearbeiter s : dieSachbearbeiter.values()) {
-            if(s.belegteFortbildungen.values().size() > 1) {
+            if(s.belegteFortbildungen.values().size() >= 1) {
                 return true;
             }
         }
@@ -121,6 +141,9 @@ public class Sachbearbeiter {
     }
     public static void loesche(String name) {
         Sachbearbeiter s = dieSachbearbeiter.get(name);
+        if(s == null) {
+            throw new IllegalArgumentException("Ein Sachbearbeiter mit dem eingegebenen Namen existiert nicht!");
+        }
         if(s.istAdmin()) {
             s.setzeBerechtigung(false);
         }

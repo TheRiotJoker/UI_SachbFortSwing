@@ -13,8 +13,11 @@ public class LoginAAS {
         boolean pAdmin = true;
         do{
             String username = Eingabe.eingeben("Bitte geben Sie den Benutzernamen ein: ");
+            if(username.equals("abbruch")) {
+                return;
+            }
             String password = Eingabe.eingeben("Bitte geben Sie das Passwort ein: ");
-            if(username.equals("abbruch") || password.equals("abbruch")) {
+            if(password.equals("abbruch")) {
                 return;
             }
             String admin;
@@ -29,11 +32,13 @@ public class LoginAAS {
             if(!success) {
                 System.out.println("Das Passwort, der Benutzername oder der Adminstatus ist falsch");
             }
-        } while(!success);
-        if(pAdmin) {
-            adminAS.oeffnen();
-        } else {
-            normalAS.oeffnen();
-        }
+            if(success) {
+                if(pAdmin) {
+                    adminAS.oeffnen();
+                } else {
+                    normalAS.oeffnen();
+                }
+            }
+        } while(true);
     }
 }

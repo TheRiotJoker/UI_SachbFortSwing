@@ -10,4 +10,12 @@ public class SachbearbeiterBearbeitenK {
         s.setzePasswort(passwort);
         Sachbearbeiter.fuegeHinzu(s);
     }
+    public boolean istAdmin(String benutzername) {
+        if(Sachbearbeiter.gib(benutzername) != null) {
+            return (Sachbearbeiter.gib(benutzername).istAdmin());
+        } else {
+            throw new IllegalArgumentException("Nutzer existiert nicht!");
+        }
+
+    }
 }

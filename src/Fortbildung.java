@@ -3,12 +3,13 @@ import java.util.HashMap;
 
 public class Fortbildung {
 
-    private ArrayList<Fortbildung> voraussetzungen;
-    private static HashMap<String, Fortbildung> dieFortbildungen;
+    private final ArrayList<Fortbildung> voraussetzungen;
+    private static final HashMap<String, Fortbildung> dieFortbildungen = new HashMap<>();
     private String name;
 
     public Fortbildung(String name) {
         this.name = name;
+        this.voraussetzungen = new ArrayList<>();
         dieFortbildungen.put(name, this);
     }
 
@@ -30,6 +31,9 @@ public class Fortbildung {
     }
     public void fuegeHinzuVoraussetzungen(Fortbildung f) {
         this.voraussetzungen.add(f);
+    }
+    public boolean istVoraussetzung(Fortbildung f) {
+        return voraussetzungen.contains(f);
     }
 
 }
