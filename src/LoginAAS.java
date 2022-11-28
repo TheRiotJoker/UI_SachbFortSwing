@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class LoginAAS {
     private final LoginK loginK;
     private final NormalAS normalAS;
@@ -8,7 +10,7 @@ public class LoginAAS {
         adminAS = new AdminAS();
 
     }
-    public void oeffnen() {
+    public void oeffnen(JFrame frame) {
         boolean success = false;
         boolean pAdmin = true;
         do{
