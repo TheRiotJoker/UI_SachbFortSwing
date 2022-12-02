@@ -1,21 +1,23 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class SachbearbeiterAuswaehlenAAS {
     private final SachbearbeiterAuswaehlenK saK;
+    private JComboBox<String> jComboBox;
     public SachbearbeiterAuswaehlenAAS() {
         saK = new SachbearbeiterAuswaehlenK();
     }
-    public String oeffnen() {
-        System.out.println("======Sachbearbeiter Auswählen======");
-        preasentiereSachbearbeiterNamen();
-        return selektiereSachbearbeiter();
-    }
-    private void preasentiereSachbearbeiterNamen() {
-        System.out.println("Die Namen der Sachbearbeiter sind: ");
-        String[] s = saK.gibSachbearbeiterNamen();
-        for(String text : s) {
-            System.out.println(text);
+    public JComboBox oeffnen() {
+        jComboBox = new JComboBox<>();
+        String[] alleSachbearbeiter = saK.gibSachbearbeiterNamen();
+        for(String s : alleSachbearbeiter) {
+            jComboBox.addItem(s);
         }
+        return jComboBox;
     }
-    public String selektiereSachbearbeiter() {
-        return Auswaehlen.waehleAus(saK.gibSachbearbeiterNamen());
+
+    public String getItem() {
+        return ((String)jComboBox.getSelectedItem());
     }
 }

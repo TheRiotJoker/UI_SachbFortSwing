@@ -1,47 +1,55 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginAAS {
     private final LoginK loginK;
-    private final NormalAS normalAS;
-    private final AdminAS adminAS;
     public LoginAAS() {
         loginK = new LoginK();
-        normalAS = new NormalAS();
-        adminAS = new AdminAS();
 
     }
-    public void oeffnen(JFrame frame) {
-        boolean success = false;
-        boolean pAdmin = true;
-        do{
-            System.out.println("======Login======");
-            String username = Eingabe.eingeben("Bitte geben Sie den Benutzernamen ein: ");
-            if(username.equals("abbruch")) {
-                return;
-            }
-            String password = Eingabe.eingeben("Bitte geben Sie das Passwort ein: ");
-            if(password.equals("abbruch")) {
-                return;
-            }
-            String admin;
-            do {
-                admin = Eingabe.eingeben("Sind sie ein Admin? [J/N]");
-                pAdmin = admin.equals("J");
-                if(admin.equals("abbruch")) {
-                    return;
-                }
-            }while(!admin.equals("J") && !admin.equals("N"));
-            success = loginK.pruefeLogin(username, password, pAdmin);
-            if(!success) {
-                System.out.println("Das Passwort, der Benutzername oder der Adminstatus ist falsch");
-            }
-            if(success) {
-                if(pAdmin) {
-                    adminAS.oeffnen();
+    public void oeffnen(JFrame frame, FortbildungsVerwaltungHS hs) {
+        SachbearbeiterS sachbearbeiterSicht = new SachbearbeiterS();
+        JPanel panel = sachbearbeiterSicht.gibSachbearbeiterPanel("Login", "MarkoJurkic", "markojurkic123");
+        GridBagConstraints c = new GridBagConstraints();
+        JButton okButton = new JButton("OK");
+        JButton abbruchButton = new JButton("Abbruch");
+        c.anchor = GridBagConstraints.CENTER;
+        c.weightx = 1;
+        c.gridx = 0;
+        c.gridy = 5;
+        c.insets = new Insets(75,25,0,25);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(abbruchButton, c);
+        c.gridx = 1;
+        panel.add(okButton, c);
+        frame.add(panel);
+        frame.revalidate();
+        frame.setVisible(true);
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!sachbearbeiterSicht.isAnythingSelected()) {
+                    JOptionPane.showMessageDialog(frame, "Bitte wählen Sie ihre Rechte aus!", "Fehler", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    normalAS.oeffnen();
+                    boolean erfolg = loginK.pruefeLogin(sachbearbeiterSicht.getBenutzernameInput(), sachbearbeiterSicht.getPasswortField(), sachbearbeiterSicht.isAdminSelected());
+                    if(!erfolg) {
+                        JOptionPane.showMessageDialog(frame, "Nutzer, Passwort oder Berechtigung ist/sind nicht korrekt, bitte versuchen Sie es nochmal!", "Fehler", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        int retVal;
+                        retVal = sachbearbeiterSicht.isAdminSelected() ? 0 : 1;
+                        hs.loginBeenden(retVal, panel);
+                    }
                 }
             }
-        } while(true);
+        });
+        abbruchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.remove(panel);
+                hs.loginAbbruch();
+            }
+        });
     }
 }

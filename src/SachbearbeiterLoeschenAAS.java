@@ -11,7 +11,7 @@ public class SachbearbeiterLoeschenAAS {
         String benutzername;
         do {
             Eingabe.abbruchInfo();
-            benutzername = saAAS.oeffnen();
+            benutzername = "";
             if(benutzername.equals("abbruch")) {
                 return;
             }

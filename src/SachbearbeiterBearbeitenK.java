@@ -5,16 +5,13 @@ public class SachbearbeiterBearbeitenK {
             throw new IllegalArgumentException("Dieser Nutzer existiert nicht!");
         }
         if(!Sachbearbeiter.pruefePasswort(passwort)) {
-            System.out.println("Das Passwort ist ungültig!");
-            return;
+            throw new IllegalArgumentException("Das Passwort ist ungültig!");
         }
         if(!Sachbearbeiter.pruefeBenutzername(name)) {
-            System.out.println("Der Benutzername ist ungültig!");
-            return;
+            throw new IllegalArgumentException("Der Benutzername ist ungültig!");
         }
         if(!Sachbearbeiter.mindestensEinAdministratorExistiert() && !istAdmin) {
-            System.out.println("Dem letzten Admin dürfen die Rechte nicht entzogen werden!");
-            return;
+            throw new IllegalArgumentException("Dem letzten Admin dürfen die Rechte nicht entzogen werden!");
         }
             Sachbearbeiter.nehmeRaus(alterName);
             s.setzeBerechtigung(istAdmin);

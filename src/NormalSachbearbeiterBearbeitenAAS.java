@@ -15,7 +15,7 @@ public class NormalSachbearbeiterBearbeitenAAS {
         do {
             do {
                 praesentiereSachbearbeiter();
-                alterName = sbAAS.sachbearbeiterAuswaehlen.oeffnen();
+                alterName = "";
                 if(alterName.equals("Abbruch")) {
                     return;
                 }

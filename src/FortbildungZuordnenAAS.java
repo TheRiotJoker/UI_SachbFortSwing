@@ -10,7 +10,7 @@ public class FortbildungZuordnenAAS {
     public void oeffnen() {
         System.out.println("======Fortbildung Zuordnen======");
         System.out.println("Bitte waehlen Sie zunächst den Sachbearbeiter");
-        String benutzername = saAAS.oeffnen();
+        String benutzername = "";
         if(benutzername.equalsIgnoreCase("abbruch")) {
             return;
         }
