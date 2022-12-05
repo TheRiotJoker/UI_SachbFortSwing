@@ -9,16 +9,13 @@ public class AdminAS {
         AbstractAction sBearbeitenAction = new AbstractAction("Sachbearbeiter Bearbeiten") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.add(sachbearbeiterBearbeiten());
-                frame.setTitle("Admin Sachbearbeiter Bearbeiten");
-                frame.repaint();
-                frame.revalidate();
+                updateFrame(sachbearbeiterBearbeiten());
             }
         };
         AbstractAction sErfassenAction = new AbstractAction("Sachbearbeiter Erfassen") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sachbearbeiterErfassen(frame);
+                updateFrame(sachbearbeiterErfassen());
             }
         };
         AbstractAction sLoeschenAction = new AbstractAction("Sachbearbeiter Löschen") {
@@ -78,6 +75,13 @@ public class AdminAS {
         frame.revalidate();
         frame.repaint();
     }
+
+    private void updateFrame(JPanel panel) {
+        frame.add(panel);
+        frame.setTitle("Admin Sachbearbeiter Bearbeiten");
+        frame.repaint();
+        frame.revalidate();
+    }
     private JPanel sachbearbeiterBearbeiten() {
         AdminSachbearbeiterBearbeitenAAS asbASS = new AdminSachbearbeiterBearbeitenAAS();
         return asbASS.adminSachbearbeiterEditieren(this);
@@ -86,9 +90,10 @@ public class AdminAS {
     public void zeigeFehlermeldung(String message) {
         JOptionPane.showMessageDialog(frame, message, "Fehler", JOptionPane.ERROR_MESSAGE );
     }
-    private void sachbearbeiterErfassen(JFrame frame) {
+    private JPanel sachbearbeiterErfassen() {
         SachbearbeiterErfassenAAS seAAS = new SachbearbeiterErfassenAAS();
-        seAAS.oeffne(frame);
+        frame.setTitle("Sachbearbeiter Erfassen");
+        return seAAS.oeffne(this);
     }
     private void sachbearbeiterLoeschen() {
         SachbearbeiterLoeschenAAS slAAS = new SachbearbeiterLoeschenAAS();
@@ -110,6 +115,18 @@ public class AdminAS {
 
     public void adminSachbearbeiterEditierenAbschliessen(JPanel panel) {
         JOptionPane.showMessageDialog(frame, "Der Sachbearbeiter wurde erfolgreich bearbeitet!");
+        frame.remove(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
+    public void abbrechen(JPanel panel) {
+        JOptionPane.showMessageDialog(frame, "Der Vorgang wurde abgebrochen.");
+        frame.remove(panel);
+        frame.revalidate();
+        frame.repaint();
+    }
+    public void adminSachbearbeiterErfassenAbschliessen(JPanel panel) {
+        JOptionPane.showMessageDialog(frame, "Der Sachbearbeiter wurde erfasst!");
         frame.remove(panel);
         frame.revalidate();
         frame.repaint();

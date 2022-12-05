@@ -10,7 +10,7 @@ public class Sachbearbeiter {
 
     private boolean admin;
     private String passwort;
-    public Sachbearbeiter(String name, String pw, boolean admin) {
+    public Sachbearbeiter(String name, String pw, boolean admin) throws IllegalArgumentException{
         this.name = name;
         setzeName(name);
         setzePasswort(pw);

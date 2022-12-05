@@ -45,6 +45,12 @@ public class AdminSachbearbeiterBearbeitenAAS {
                 }
             }
         });
+        abbruchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminAS.abbrechen(panel);
+            }
+        });
         panel.add(okButton, c);
         c.gridx = 1;
         panel.add(abbruchButton, c);

@@ -42,6 +42,7 @@ public class SachbearbeiterS {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 75;
         c.weightx = 1;
+        c.weighty = 1;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.gridx = 0;
         c.gridy = 0;
