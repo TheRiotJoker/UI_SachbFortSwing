@@ -37,7 +37,7 @@ public class Sachbearbeiter {
         //das passwort muss mindestens 7 zeichen lang sein
         return pw.length() >= 7;
     }
-    private static boolean istBenutzernameVorhanden(String name) {
+    public static boolean istBenutzernameVorhanden(String name) {
         for(String s : dieSachbearbeiter.keySet()) {
             if(s.equals(name)) {
                 return true;
@@ -67,6 +67,9 @@ public class Sachbearbeiter {
         return bestandeneFortbildungen;
     }
     public void fuegeHinzuBelegteFortbildungen(Fortbildung f, String s) {
+        if(belegteFortbildungen.containsValue(f)) {
+            throw new IllegalArgumentException("Der Nutzer hat diese Fortbildung bereits belegt!");
+        }
         for(Fortbildung fb : f.gibVoraussetzungen()) {
             if(!bestandeneFortbildungen.containsValue(fb)) {
                 throw new IllegalArgumentException("Diese Fortbildung kann von diesem Sachbearbeiter nicht belegt werden, da dieser die Voraussetzungen nicht erfüllt!");
@@ -78,13 +81,16 @@ public class Sachbearbeiter {
         if(!belegteFortbildungen.containsValue(f)) {
             throw new IllegalArgumentException("Der Sachbearbeiter kann eine nicht belegte Fortbildung nicht bestehen!");
         }
+        if(bestandeneFortbildungen.containsValue(f)) {
+            throw new IllegalArgumentException("Der Nutzer hat diese Fortbildung bereits bestanden!");
+        }
         bestandeneFortbildungen.put(s,f);
     }
     public static Sachbearbeiter gib(String name) {
         return dieSachbearbeiter.get(name);
     }
 
-    public void loescheFortbildungsZuordnung(String zuordnung) {
+    public void loescheFortbildungsZuordnung(String zuordnung) throws IllegalArgumentException {
         //gib fortbildung, die zu löschen ist:
         Fortbildung f = bestandeneFortbildungen.get(zuordnung);
         //Die Fortbildung darf nicht gelöscht werden, wenn sie eine voraussetzung darstellt für eine andere fortbildung
@@ -152,6 +158,7 @@ public class Sachbearbeiter {
         dieSachbearbeiter.remove(name);
     }
     public static void nehmeRaus(String name) {
+        System.out.println(name+" wurde entfernt!");
         dieSachbearbeiter.remove(name);
     }
 

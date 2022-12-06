@@ -1,10 +1,11 @@
 public class FortbildungsZuordnungLoeschenK {
     public void loescheFortbildungsZuordnung(String benutzer, String fortbildung) {
+        System.out.println(fortbildung);
         Sachbearbeiter s = Sachbearbeiter.gib(benutzer);
-        try {
-            s.loescheFortbildungsZuordnung(fortbildung);
-        }catch(IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        for(int i = 0; i < fortbildung.length(); i++) {
+            if(fortbildung.startsWith("->", i)) {
+                s.loescheFortbildungsZuordnung(fortbildung.substring(0,i-1));
+            }
         }
     }
 }

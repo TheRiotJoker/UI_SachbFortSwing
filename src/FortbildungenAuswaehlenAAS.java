@@ -1,23 +1,21 @@
+import javax.swing.*;
+
 public class FortbildungenAuswaehlenAAS {
-    private final FortbildungAuswaehlenK faK;
+    private FortbildungAuswaehlenK faK;
+    private JList<String> list;
     public FortbildungenAuswaehlenAAS() {
         faK = new FortbildungAuswaehlenK();
     }
-    public String oeffne() {
-        System.out.println("======Fortbildungen Auswählen======");
-        praesentiereFortbildungen();
-        return selektiereFortbildung();
-    }
-    private void praesentiereFortbildungen() {
-        String[] fortbildungen = faK.gibFortbildungenNamen();
-        System.out.println("Verfügbare Fortbildungen");
-        for(String s : fortbildungen) {
-            System.out.println(s);
+    public JList<String> oeffnen() {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        list = new JList<String>(model);
+        String[] strings = faK.gibFortbildungenNamen();
+        for(String s : strings) {
+            model.addElement(s);
         }
+        return list;
     }
-    private String selektiereFortbildung() {
-        Eingabe.abbruchInfo();
-        return Auswaehlen.waehleAus(faK.gibFortbildungenNamen());
+    public String getSelectedItem() {
+        return list.getSelectedValue();
     }
-
 }

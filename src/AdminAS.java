@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class AdminAS {
-    private JFrame frame;
+public class AdminAS extends Schnittstellenklasse {
     public void oeffnen(JFrame frame, JToolBar toolBar) {
         this.frame = frame;
         frame.setTitle("Sachbearbeiter Verwaltung - Administrator");
@@ -21,19 +20,19 @@ public class AdminAS {
         AbstractAction sLoeschenAction = new AbstractAction("Sachbearbeiter Löschen") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("sloeschen");
+                updateFrame(sachbearbeiterLoeschen());
             }
         };
         AbstractAction fZuordnenAction = new AbstractAction("Fortbildung Zuordnen") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("fzuordnen");
+                updateFrame(fortbildungZuordnen());
             }
         };
         AbstractAction fZuordnungLoeschenAction = new AbstractAction("Fortbildungszuordnung Löschen") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("fzuordnungloeschen");
+                updateFrame(fortbildungsZuordnungLoeschen());
             }
         };
         AbstractAction zurueckAction = new AbstractAction("Zurück") {
@@ -65,7 +64,6 @@ public class AdminAS {
         JMenuBar menuBar = frame.getJMenuBar();
         menuBar.add(sachbearbeiterMenu);
         menuBar.add(zurueckMenu);
-
         toolBar.add(sBearbeiten);
         toolBar.add(sErfassen);
         toolBar.add(sLoeschen);
@@ -76,59 +74,48 @@ public class AdminAS {
         frame.repaint();
     }
 
-    private void updateFrame(JPanel panel) {
-        frame.add(panel);
-        frame.setTitle("Admin Sachbearbeiter Bearbeiten");
-        frame.repaint();
-        frame.revalidate();
+    protected void updateFrame(JPanel panel) {
+        super.updateFrame(panel);
+        frame.setTitle("Admin Panel");
     }
     private JPanel sachbearbeiterBearbeiten() {
         AdminSachbearbeiterBearbeitenAAS asbASS = new AdminSachbearbeiterBearbeitenAAS();
         return asbASS.adminSachbearbeiterEditieren(this);
     }
 
-    public void zeigeFehlermeldung(String message) {
-        JOptionPane.showMessageDialog(frame, message, "Fehler", JOptionPane.ERROR_MESSAGE );
-    }
+
     private JPanel sachbearbeiterErfassen() {
         SachbearbeiterErfassenAAS seAAS = new SachbearbeiterErfassenAAS();
         frame.setTitle("Sachbearbeiter Erfassen");
         return seAAS.oeffne(this);
     }
-    private void sachbearbeiterLoeschen() {
+    private JPanel sachbearbeiterLoeschen() {
         SachbearbeiterLoeschenAAS slAAS = new SachbearbeiterLoeschenAAS();
-        slAAS.oeffnen();
+        return slAAS.oeffnen(this);
     }
-    private void fortbildungZuordnen() {
+    private JPanel fortbildungZuordnen() {
         FortbildungZuordnenAAS fzAAS = new FortbildungZuordnenAAS();
-        fzAAS.oeffnen();
+        return fzAAS.oeffnen(this);
     }
-    private void fortbildungsZuordnungLoeschen() {
+    private JPanel fortbildungsZuordnungLoeschen() {
         FortbildungsZuordnungLoeschenAAS fzlAAS = new FortbildungsZuordnungLoeschenAAS();
-        fzlAAS.oeffnen();
-
-    }
-    private void fortbildungsZuordnungAnzeigen() {
-        FortbildungsZuordnungAnzeigenAAS fzaAAS = new FortbildungsZuordnungAnzeigenAAS();
-        fzaAAS.oeffnen();
+        return fzlAAS.oeffnen(this);
     }
 
-    public void adminSachbearbeiterEditierenAbschliessen(JPanel panel) {
-        JOptionPane.showMessageDialog(frame, "Der Sachbearbeiter wurde erfolgreich bearbeitet!");
-        frame.remove(panel);
-        frame.revalidate();
-        frame.repaint();
-    }
-    public void abbrechen(JPanel panel) {
-        JOptionPane.showMessageDialog(frame, "Der Vorgang wurde abgebrochen.");
-        frame.remove(panel);
-        frame.revalidate();
-        frame.repaint();
-    }
+
+
+
     public void adminSachbearbeiterErfassenAbschliessen(JPanel panel) {
         JOptionPane.showMessageDialog(frame, "Der Sachbearbeiter wurde erfasst!");
         frame.remove(panel);
-        frame.revalidate();
-        frame.repaint();
+        refreshFrame();
     }
+
+    public void adminSachbearbeiterLoeschenAbschliessen(JPanel panel) {
+        JOptionPane.showMessageDialog(frame, "Der Sachbearbeiter wurde gelöscht!");
+        frame.remove(panel);
+        refreshFrame();
+    }
+
+
 }

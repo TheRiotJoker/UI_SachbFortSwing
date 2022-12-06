@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class SachbearbeiterErfassenAAS {
     private final SachbearbeiterErfassenK seK;
-    private SachbearbeiterS sachbearbeiterSicht;
+    private final SachbearbeiterS sachbearbeiterSicht;
     public SachbearbeiterErfassenAAS() {
         seK = new SachbearbeiterErfassenK();
         sachbearbeiterSicht = new SachbearbeiterS();
@@ -19,13 +19,17 @@ public class SachbearbeiterErfassenAAS {
         c.insets = new Insets(75,25,0,25);
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
-        JButton okButton = new JButton();
-        JButton abbruchButton = new JButton();
+        JButton okButton = new JButton("OK");
+        returnPanel.add(okButton, c);
+        JButton abbruchButton = new JButton("Abbruch");
+        c.gridx = 1;
+        returnPanel.add(abbruchButton, c);
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     seK.erfasseSachbearbeiter(sachbearbeiterSicht.getBenutzernameInput(),sachbearbeiterSicht.getPasswortField(),sachbearbeiterSicht.isAdminSelected());
+                    adminAS.adminSachbearbeiterErfassenAbschliessen(returnPanel);
                 }catch(IllegalArgumentException ex) {
                     adminAS.zeigeFehlermeldung(ex.getMessage());
                 }

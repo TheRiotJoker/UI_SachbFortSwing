@@ -7,7 +7,8 @@ public class SachbearbeiterBearbeitenK {
         if(!Sachbearbeiter.pruefePasswort(passwort)) {
             throw new IllegalArgumentException("Das Passwort ist ungültig!");
         }
-        if(!Sachbearbeiter.pruefeBenutzername(name)) {
+        System.out.println(Sachbearbeiter.istBenutzernameVorhanden(name));
+        if(!Sachbearbeiter.pruefeBenutzername(name) || Sachbearbeiter.istBenutzernameVorhanden(name)) {
             throw new IllegalArgumentException("Der Benutzername ist ungültig!");
         }
         if(!Sachbearbeiter.mindestensEinAdministratorExistiert() && !istAdmin) {
@@ -18,6 +19,22 @@ public class SachbearbeiterBearbeitenK {
             s.setzeName(name);
             s.setzePasswort(passwort);
             Sachbearbeiter.fuegeHinzu(s);
+    }
+    public void schreibeSachbearbeiter(String alterName, String name, String passwort) {
+        Sachbearbeiter s = Sachbearbeiter.gib(alterName);
+        if(s == null) {
+            throw new IllegalArgumentException("Dieser Nutzer existiert nicht!");
+        }
+        if(!Sachbearbeiter.pruefePasswort(passwort)) {
+            throw new IllegalArgumentException("Das Passwort ist ungültig!");
+        }
+        if(!Sachbearbeiter.pruefeBenutzername(name) || Sachbearbeiter.istBenutzernameVorhanden(name)) {
+            throw new IllegalArgumentException("Der Benutzername ist ungültig!");
+        }
+        Sachbearbeiter.nehmeRaus(alterName);
+        s.setzeName(name);
+        s.setzePasswort(passwort);
+        Sachbearbeiter.fuegeHinzu(s);
     }
     public boolean istAdmin(String benutzername) {
         if(Sachbearbeiter.gib(benutzername) != null) {

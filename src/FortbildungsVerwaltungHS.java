@@ -28,6 +28,9 @@ public class FortbildungsVerwaltungHS {
         mt2.fuegeHinzuVoraussetzungen(mt1);
         frame = new JFrame("Hello World");
 
+        Sachbearbeiter sachbearbeiter = Sachbearbeiter.gib("MarkoJurkic");
+        sachbearbeiter.fuegeHinzuBelegteFortbildungen(mt1, "Mathematik 1");
+        sachbearbeiter.fuegeHinzuBestandeneFortbildungen(mt1, "Mathematik 1");
 
         //frame.setLayout(new GridBagLayout());
         menuBar = new JMenuBar();
@@ -100,6 +103,7 @@ public class FortbildungsVerwaltungHS {
             adminAS.oeffnen(frame, toolBar);
         } else {
             NormalAS normalAS = new NormalAS();
+            normalAS.oeffnen(frame, toolBar);
         }
         refresh();
     }

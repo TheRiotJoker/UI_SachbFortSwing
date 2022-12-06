@@ -1,14 +1,23 @@
+import javax.swing.*;
+
 public class FortbildungsZuordnungAnzeigenAAS {
-    private final FortbildungsZuordnungAuswaehlenAAS fzaAAS;
+    private JList<String> list;
+    private final FortbildungsZuordnungAnzeigenK fzaK;
     public FortbildungsZuordnungAnzeigenAAS() {
-        fzaAAS = new FortbildungsZuordnungAuswaehlenAAS();
+
+        fzaK = new FortbildungsZuordnungAnzeigenK();
     }
-    public void oeffnen() {
-        System.out.println("======Fortbildungszuordnungen======");
-        String[] fortbildungsZuordnungen = fzaAAS.oeffnen();
-        System.out.println("Die Zuordnungen von dem von Ihnen gewählten Nutzer: ");
-        for(String s : fortbildungsZuordnungen) {
-            System.out.println(s);
+    public JList<String> oeffnen(String name) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        list = new JList<>(model);
+        String[] strings = fzaK.gibZuordnungen(name);
+        for(String s : strings) {
+            model.addElement(s);
         }
+        return list;
+    }
+
+    public String getItem() {
+        return list.getSelectedValue();
     }
 }

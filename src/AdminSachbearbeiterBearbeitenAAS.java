@@ -20,17 +20,15 @@ public class AdminSachbearbeiterBearbeitenAAS {
         JLabel auswahlLabel = new JLabel("Sachbearbeiterauswahl:");
         JButton okButton = new JButton("OK");
         JButton abbruchButton = new JButton("Abbruch");
-        Component component = saAAS.oeffnen();
+        JComboBox<String> comboBox = saAAS.oeffnen();
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 5;
         c.anchor = GridBagConstraints.WEST;
         panel.add(auswahlLabel, c);
-        c.gridx = 3;
-        panel.add(component, c);
         c.gridx = 0;
         c.weightx = 1;
-        c.gridy = 6;
+        c.gridy = 7;
         c.insets = new Insets(75,25,0,25);
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -39,7 +37,7 @@ public class AdminSachbearbeiterBearbeitenAAS {
             public void actionPerformed(ActionEvent e) {
                 try {
                     sbK.schreibeSachbearbeiter(saAAS.getItem(), sbAS.getBenutzername(), sbAS.getPasswort(), sbAS.isAdmin());
-                    adminAS.adminSachbearbeiterEditierenAbschliessen(panel);
+                    adminAS.sachbearbeiterEditierenAbschliessen(panel);
                 } catch(IllegalArgumentException exc) {
                     adminAS.zeigeFehlermeldung(exc.getMessage());
                 }
@@ -55,8 +53,5 @@ public class AdminSachbearbeiterBearbeitenAAS {
         c.gridx = 1;
         panel.add(abbruchButton, c);
         return panel;
-    }
-    public String getChosenItem() {
-        return saAAS.getItem();
     }
 }

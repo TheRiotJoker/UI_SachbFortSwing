@@ -11,7 +11,6 @@ public class SachbearbeiterS {
     public String getPasswortField() {
         return passwortField.getText();
     }
-    //es tut mir nicht leid, englische begriffe benutzt zu haben, bin gerade so am verzweiflen an der aufgabenstellung, die ist so dermaßen komisch geschrieben
     public boolean isAnythingSelected() {
         return normal.isSelected() || admin.isSelected();
     }
@@ -52,9 +51,6 @@ public class SachbearbeiterS {
         c.gridx = 0;
         c.gridy = 2;
         panel.add(passwortLabel, c);
-        c.gridx = 0;
-        c.gridy = 3;
-        panel.add(berechtigungLabel,c );
         c.ipady = 0;
         c.gridx = 3;
         c.gridy = 1;
@@ -64,6 +60,9 @@ public class SachbearbeiterS {
         c.gridy = 2;
         panel.add(passwortField, c);
         if(!ueberschrift.equals("Sachbearbeiter Bearbeiten - Normal")) {
+            c.gridx = 0;
+            c.gridy = 3;
+            panel.add(berechtigungLabel,c );
             c.gridx = 3;
             c.gridy = 3;
             c.fill = GridBagConstraints.NONE;

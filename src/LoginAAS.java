@@ -51,5 +51,7 @@ public class LoginAAS {
                 hs.loginAbbruch();
             }
         });
+        frame.revalidate();
+        frame.repaint();
     }
 }
