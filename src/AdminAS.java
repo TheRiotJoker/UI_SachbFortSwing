@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class AdminAS extends Schnittstellenklasse {
@@ -38,7 +39,14 @@ public class AdminAS extends Schnittstellenklasse {
         AbstractAction zurueckAction = new AbstractAction("Zurück") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("zurueck");
+                System.out.println("Removed jpanel");
+                for(Component c : frame.getContentPane().getComponents()) {
+                    System.out.println(c);
+                    if(c instanceof JPanel) {
+                        frame.remove(c);
+                        refreshFrame();
+                    }
+                }
             }
         };
         JButton sBearbeiten = new JButton(sBearbeitenAction);
